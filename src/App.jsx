@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Intro_main from "./components/Intro_main.jsx";
+import Intro_main from "../src/components/Intro_final.jsx";
 import Login from "./components/Login.jsx";
 
 export default function App() {

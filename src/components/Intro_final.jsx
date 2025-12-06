@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Dashboards from "./Dashboards";
 
 
-export default function Intro_main() {
+export default function Intro_final() {
   // Decide FIRST stage before component renders anything
   const [stage, setStage] = useState(() => {
     const played = localStorage.getItem("introPlayed");
