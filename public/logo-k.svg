@@ -1,0 +1,49 @@
+<svg width="64" height="64" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- BACKGROUND -->
+  <rect
+    x="0"
+    y="0"
+    width="300"
+    height="300"
+    rx="48"
+    fill="#160523"
+  />
+
+  <!-- GLASS PANEL -->
+  <rect
+    x="25"
+    y="25"
+    width="250"
+    height="250"
+    rx="32"
+    fill="rgba(255,255,255,0.06)"
+    stroke="rgba(103,232,249,0.35)"
+    stroke-width="10"
+  />
+
+  <!-- LEFT BAR -->
+  <rect
+    x="80"
+    y="80"
+    width="50"
+    height="140"
+    rx="14"
+    fill="rgba(103,232,249,0.38)"
+    stroke="#67e8f9"
+    stroke-width="3"
+  />
+
+  <!-- UPPER DIAGONAL -->
+  <path
+    d="M130 150 L210 80 Q230 70 250 85 L165 150 Z"
+    fill="#67e8f9"
+  />
+
+  <!-- LOWER DIAGONAL -->
+  <path
+    d="M130 150 L165 150 L210 230 Q230 245 250 225 L165 150 Z"
+    fill="rgba(103,232,249,0.18)"
+  />
+
+</svg>
