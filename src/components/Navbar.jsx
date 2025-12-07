@@ -38,7 +38,7 @@ export default function Navbar() {
 
                 <motion.span
                     variants={navVariant}
-                    className="text-cyan-300 font-semibold text-3xl tracking-wide"
+                    className="text-cyan-600 font-semibold text-3xl tracking-wide"
                 >
                     KAVIX
                 </motion.span>
