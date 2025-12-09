@@ -61,21 +61,19 @@ export default function Intro_final() {
     return () => timers.forEach((t) => clearTimeout(t));
   }, []);
 
-  // ------ Animations (unchanged) ------
+  // ------ Animations ------
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
     show: (i) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.08, duration: 0.6, ease: "easeOut" }
+      transition: {
+        delay: i * 0.15,
+        duration: 0.7,
+        ease: [0.6, 0.01, 0.05, 0.95]
+      }
     })
   };
-
-  const phraseVariantsSet = [
-    { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -14 } },
-    { hidden: { opacity: 0, scale: 0.97, y: 20 }, visible: { opacity: 1, scale: 1, y: 0 }, exit: { opacity: 0, y: -16 } },
-    { hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -14 } },
-  ];
 
   const phraseColorClasses = ["#C7B7FF", "#7DE7F9", "#D0B8FF"];
   const phraseFont = "'Inter', sans-serif";
@@ -88,9 +86,156 @@ export default function Intro_final() {
     }
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -40,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  // Render phrase based on index
+  const renderPhrase = () => {
+    const phrase = phrases[phraseIndex];
+    const color = phraseColorClasses[phraseIndex];
+
+    // Phrase 0: "Smarter Analytics" - Letter by letter typewriter with glow pulse
+    if (phraseIndex === 0) {
+      const letters = phrase.split("");
+      return (
+        <motion.div
+          key={phraseIndex}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex"
+        >
+          {letters.map((letter, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 20, scale: 0.5 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: {
+                  delay: i * 0.05,
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 15
+                }
+              }}
+              style={{
+                fontFamily: phraseFont,
+                fontWeight: 500,
+                fontSize: "54px",
+                color: color,
+                textShadow: `0 0 30px ${color}80, 0 0 60px ${color}40`,
+                display: letter === " " ? "inline-block" : "inline",
+                width: letter === " " ? "0.3em" : "auto"
+              }}
+            >
+              {letter === " " ? "\u00A0" : letter}
+            </motion.span>
+          ))}
+        </motion.div>
+      );
+    }
+
+    // Phrase 1: "VISION THAT LEADS" - Word by word from left/right
+    if (phraseIndex === 1) {
+      const words = phrase.split(" ");
+      return (
+        <motion.div
+          key={phraseIndex}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex gap-4"
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80, scale: 0.5 }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                transition: {
+                  delay: i * 0.15,
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 20
+                }
+              }}
+              style={{
+                fontFamily: phraseFont,
+                fontWeight: 700,
+                fontSize: "64px",
+                color: color,
+                textShadow: `0 0 30px ${color}40`
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.div>
+      );
+    }
+
+    // Phrase 2: "Invest With Confidence" - Sequential from bottom
+    if (phraseIndex === 2) {
+      const words = phrase.split(" ");
+      return (
+        <motion.div
+          key={phraseIndex}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex gap-4"
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: i * 0.2,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }
+              }}
+              style={{
+                fontFamily: phraseFont,
+                fontWeight: 500,
+                fontSize: "54px",
+                color: color,
+                textShadow: `0 0 30px ${color}40`
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.div>
+      );
+    }
+  };
+
   // -------------- UI ---------------
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#160523] to-[#05010a]  relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#160523] to-[#05010a] relative">
       <AnimatePresence mode="wait">
 
         {/* 1. INTRO LOGO */}
@@ -119,7 +264,8 @@ export default function Intro_final() {
                   fontWeight: 1000,
                   fontSize: "88px",
                   color: "#67e8f9",
-                  marginInline: "2px"
+                  marginInline: "2px",
+                  textShadow: "0 0 40px rgba(103, 232, 249, 0.5)"
                 }}
               >
                 {ch}
@@ -127,33 +273,17 @@ export default function Intro_final() {
             ))}
           </motion.div>
         )}
-
+              
         {/* 3. PHRASES */}
         {stage === "phrases" && (
           <motion.div className="fixed inset-0 flex items-center justify-center">
-            <motion.h2
-              key={phraseIndex}
-              variants={phraseVariantsSet[phraseIndex]}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{
-                fontFamily: phraseFont,
-                fontWeight: 500,
-                fontSize: "54px",
-                color: phraseColorClasses[phraseIndex],
-                textAlign: "center"
-              }}
-            >
-              {phrases[phraseIndex]}
-            </motion.h2>
+            {renderPhrase()}
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* 4. HOME PAGE */}
-
-      {stage === "done" && <Dashboards/>}
+      {stage === "done" && <Dashboards />}
     </div>
   );
 }
