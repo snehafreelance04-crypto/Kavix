@@ -44,7 +44,9 @@ export default function Navbar() {
           variants={navVariant}
           className="flex items-center gap-6 text-white font-medium text-md ml-6"
         >
-          <button className="hover:text-cyan-300 transition">
+          <button
+            onClick={() => navigate("/about")}
+          className="hover:text-cyan-300 transition">
             ABOUT US
           </button>
           <button className="hover:text-cyan-300 transition">
