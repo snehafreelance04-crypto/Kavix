@@ -395,8 +395,8 @@ const Dashboards = () => {
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gray-900 text-gray-400 py-2 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <LogoK/>
+        <div className="max-w-6xl mx-auto text-center ">
+          <span className="w-12 ml-[42%] top-10 relative h-12 flex items-center justify-center"><LogoK/></span>
           <div className=" text-2xl font-bold text-blue-400 mb-4">KAVIX</div>
           <p className="text-sm mb-2">
             © 2025 KAVIX. Empowering your investment decisions.
