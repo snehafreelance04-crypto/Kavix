@@ -49,9 +49,6 @@ export default function Navbar() {
           className="hover:text-cyan-300 transition">
             ABOUT US
           </button>
-          <button className="hover:text-cyan-300 transition">
-            ARTICLES
-          </button>
         </motion.div>
       </div>
 
