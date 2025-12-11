@@ -60,8 +60,8 @@ export default function Signup() {
       {/* CARD */}
       <div className="absolute left-1/2 top-6 -translate-x-[90%] w-[600px] min-h-[94vh] bg-white border rounded-2xl shadow-2xl z-10 px-14 py-10">
 
-        <button onClick={() => navigate("/")} className="text-gray-700 text-lg mb-6">
-          ← Back
+        <button onClick={() => navigate("/")} className="text-gray-700 font-serif text-lg mb-6">
+          ← Home
         </button>
 
         {/* LOGO */}

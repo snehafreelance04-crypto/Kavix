@@ -64,7 +64,7 @@ export default function Login() {
           onClick={() => navigate("/")}
           className="text-gray-700 font-serif hover:text-black text-lg mb-6"
         >
-          ← Back
+          ← Home
         </button>
 
         {/* Logo */}
