@@ -36,7 +36,7 @@ const CountUp = ({ end, duration = 2000 }) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
+
       // Easing function for smooth deceleration
       const easeOutQuart = 1 - Math.pow(1 - percentage, 4);
       setCount(Math.floor(easeOutQuart * end));
@@ -88,7 +88,7 @@ const Dashboards = () => {
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-full h-full rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-xl relative overflow-hidden"
+          className="w-[97%] h-full rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-xl relative overflow-hidden"
         >
           <Navbar />
 
@@ -120,14 +120,14 @@ const Dashboards = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-12 flex gap-5 flex-wrap justify-center"
             >
-              <button 
+              <button
                 onClick={scrollToContent}
                 className="px-7 py-3 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium shadow-lg hover:scale-105 transition"
               >
                 Explore Articles
               </button>
 
-              <button 
+              <button
                 onClick={scrollToHowItWorks}
                 className="px-7 py-3 rounded-full border border-white/20 text-gray-200 hover:bg-white/10 transition"
               >
@@ -236,7 +236,7 @@ const Dashboards = () => {
       </section>
 
       {/* ================= HOW IT WORKS SECTION ================= */}
-      <section ref={howItWorksRef} className="bg-gradient-to-b from-violet-50 to-white py-28 px-6">
+      <section ref={howItWorksRef} className="bg-gradient-to-b from-violet-200 to-white py-28 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -321,42 +321,47 @@ const Dashboards = () => {
       </section>
 
       {/* ================= STATS SECTION ================= */}
-      <section className="bg-gray-900 py-7 px-6">
+      <section className="bg-gray-800 py-7 px-6 w-[98%] rounded-full">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12 text-center">
+
+            {/* Expert Articles */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
               <div className="text-5xl font-bold text-violet-400">
-                <CountUp end={500} />+
+                <CountUp end={200} duration={700} />+
               </div>
               <div className="mt-3 text-gray-400 text-lg">Expert Articles</div>
             </motion.div>
 
+            {/* Active Readers */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="text-5xl font-bold text-violet-400">
-                <CountUp end={50000} duration={2500} />+
+                <CountUp end={1000} duration={800} />+
               </div>
               <div className="mt-3 text-gray-400 text-lg">Active Readers</div>
             </motion.div>
 
+            {/* Contributors */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="text-5xl font-bold text-violet-400">
-                <CountUp end={100} />+
+                <CountUp end={100} duration={700} />+
               </div>
               <div className="mt-3 text-gray-400 text-lg">Contributors</div>
             </motion.div>
 
+            {/* Free Access */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -365,9 +370,11 @@ const Dashboards = () => {
               <div className="text-5xl font-bold text-violet-400">24/7</div>
               <div className="mt-3 text-gray-400 text-lg">Free Access</div>
             </motion.div>
+
           </div>
         </div>
       </section>
+
 
       {/* ================= CTA SECTION ================= */}
       <section className="bg-white py-32 px-6">
@@ -376,7 +383,7 @@ const Dashboards = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900"
+            className="text-4xl md:text-6xl font-bold text-gray-900"
           >
             Ready to Make{" "}
             <span className="text-violet-600">Smarter Investments?</span>
@@ -394,18 +401,33 @@ const Dashboards = () => {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-gray-900 text-gray-400 py-2 px-6">
-        <div className="max-w-6xl mx-auto text-center ">
-          <span className="w-12 ml-[42%] top-10 relative h-12 flex items-center justify-center"><LogoK/></span>
-          <div className=" text-2xl font-bold text-blue-400 mb-4">KAVIX</div>
-          <p className="text-sm mb-2">
-            © 2025 KAVIX. Empowering your investment decisions.
+      <footer className="bg-gray-800 text-gray-400 py-6 mt-auto">
+        <div className="max-w-6xl mx-auto text-center">
+
+          {/* Logo + Text Side-by-Side */}
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-10 h-10 flex items-center justify-center">
+              <LogoK />
+            </span>
+
+            <div className="text-[22px] font-bold text-blue-400">
+              KAVIX
+            </div>
+          </div>
+
+          <p className="text-sm text-gray-400 mb-1">
+            © 2025 <span className="font-semibold text-gray-200">KAVIX</span>.
+            Every market has a story.
           </p>
-          <p className="text-xs text-red-400">
-            Website designed by Sneha Sharma
+
+
+          <p className="text-[13px] text-gray-500 tracking-widest uppercase">
+            Crafted by <span className="text-gray-300">Sneha Sharma</span>
           </p>
+
         </div>
       </footer>
+
     </div>
   );
 };
