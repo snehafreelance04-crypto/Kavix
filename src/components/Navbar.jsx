@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import LogoK from "./LogoK";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  // ✅ navigation hook
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navVariant = {
     hidden: { opacity: 0, y: -60 },
@@ -21,11 +21,15 @@ export default function Navbar() {
       variants={navVariant}
       initial="hidden"
       animate="visible"
-      className="w-[95%] left-20 z-50 px-10 py-3
-                 flex mt-10 items-center justify-between"
+      className="
+        w-full max-w-[98%] mx-auto mt-5 px-4 py-3 
+        flex items-center justify-between 
+        z-50 relative
+      "
     >
       {/* LEFT SIDE */}
-      <div className="flex items-center  gap-3">
+      <div className="flex items-center gap-6">
+        {/* Logo */}
         <motion.div
           variants={navVariant}
           className="w-12 h-12 flex items-center justify-center"
@@ -33,6 +37,7 @@ export default function Navbar() {
           <LogoK className="w-full h-full" />
         </motion.div>
 
+        {/* Brand Name */}
         <motion.span
           variants={navVariant}
           className="text-cyan-600 font-semibold text-3xl tracking-wide"
@@ -40,40 +45,90 @@ export default function Navbar() {
           KAVIX
         </motion.span>
 
-        <motion.div
+        {/* ABOUT US moved here */}
+        <motion.button
           variants={navVariant}
-          className="flex items-center gap-6 text-white font-medium text-md ml-6"
+          onClick={() => navigate("/about")}
+          className="hidden md:block text-white font-medium hover:text-cyan-300 text-sm"
         >
-          <button
-            onClick={() => navigate("/about")}
-          className="hover:text-cyan-300 transition">
-            ABOUT US
-          </button>
-        </motion.div>
+          ABOUT US
+        </motion.button>
       </div>
 
+
+      {/* DESKTOP MENU */}
+
       {/* RIGHT SIDE */}
-      <motion.div
-        variants={navVariant}
-        className="flex items-center gap-6 text-md"
-      >
-        {/* Login */}
+      <div className="hidden md:flex items-center gap-8 text-white text-sm font-medium">
+
         <button
           onClick={() => navigate("/login")}
-          className="text-white hover:text-cyan-300 transition"
+          className="hover:text-cyan-300 transition"
         >
           LOGIN
         </button>
 
-        {/* Signup */}
         <button
           onClick={() => navigate("/signup")}
-          className="px-5  py-2 rounded-full border border-white/40 text-white
-                     hover:bg-cyan-950 hover:text-white transition"
+          className="px-5 py-2 rounded-full border border-white/40 text-white
+               hover:bg-cyan-900 transition"
         >
           CREATE FREE ACCOUNT
         </button>
-      </motion.div>
-    </motion.nav>
+      </div>
+
+      {/* MOBILE MENU BUTTON */}
+      <button
+        className="md:hidden text-white text-3xl"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        ☰
+      </button>
+
+      {/* MOBILE DROPDOWN */}
+      {
+        menuOpen && (
+          <div
+            className="
+            absolute top-16 right-3 
+            w-44 bg-[#0d0d15] border border-white/10 
+            rounded-xl p-4 flex flex-col gap-4
+            md:hidden shadow-xl
+          "
+          >
+            <button
+              onClick={() => {
+                navigate("/about");
+                setMenuOpen(false);
+              }}
+              className="text-white hover:text-cyan-300 transition"
+            >
+              ABOUT US
+            </button>
+
+            <button
+              onClick={() => {
+                navigate("/login");
+                setMenuOpen(false);
+              }}
+              className="text-white hover:text-cyan-300 transition"
+            >
+              LOGIN
+            </button>
+
+            <button
+              onClick={() => {
+                navigate("/signup");
+                setMenuOpen(false);
+              }}
+              className="px-4 py-2 rounded-full border border-white/40 text-white
+                       hover:bg-cyan-900 transition"
+            >
+              CREATE ACCOUNT
+            </button>
+          </div>
+        )
+      }
+    </motion.nav >
   );
 }

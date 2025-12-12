@@ -1,4 +1,4 @@
-// Dashboards.jsx
+// Dashboards.jsx - Fully Responsive Version
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -81,13 +81,15 @@ const Dashboards = () => {
   };
 
   return (
-    <div className="bg-white w-screen min-h-screen overflow-x-hidden">
+    <div className="bg-white w-full min-h-screen overflow-x-hidden">
       {/* ================= PURPLE HERO SECTION ================= */}
-      <div className="p-6 h-screen min-h-[750px] flex justify-center items-start relative">
+      <div className="p-3 sm:p-4 md:p-6 
+     h-[92vh] sm:h-screen md:h-[90vh] 
+min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start relative">
         {/* Animated background patterns */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-violet-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
 
         <motion.div
@@ -96,23 +98,31 @@ const Dashboards = () => {
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-[97%] h-full rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20"
+          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[48rem] sm:h-full" 
         >
           <Navbar />
 
           {/* Hero Content */}
-          <div className="flex flex-col items-center justify-center mt-20 px-4 text-center relative z-20">
+          <div
+            className="
+flex flex-col items-center justify-center
+mt-20 sm:mt-20 md:mt-24 lg:mt-28
+px-4 sm:px-6 text-center relative z-20
+space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
+"
+          >
+
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="text-white text-5xl md:text-7xl font-extrabold font-mono tracking-tight mb-8"
+              className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold font-mono tracking-tight mb-4 sm:mb-6 md:mb-8 leading-tight"
             >
               WHERE MARKETS MEET{" "}
-              <span className="text-violet-400 relative">
+              <span className="text-violet-400 relative inline-block">
                 MEANING
                 <motion.div
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-violet-400 to-transparent"
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-transparent via-violet-400 to-transparent"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ delay: 0.8, duration: 0.6 }}
@@ -124,7 +134,7 @@ const Dashboards = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-gray-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-12"
+              className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl max-w-xl md:max-w-2xl leading-relaxed px-4 mb-6 sm:mb-8 md:mb-10 mt-3"
             >
               Clear, well-researched stories that help you understand markets,
               businesses, and long-term investing — without the noise.
@@ -134,29 +144,55 @@ const Dashboards = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex gap-5 flex-wrap justify-center mb-10"
+              className="
+    flex flex-col sm:flex-row 
+    gap-6 sm:gap-5 md:gap-8 lg:gap-10
+    flex-wrap justify-center 
+     sm:mb-12 md:mb-16 
+    w-full px-6 
+  "
             >
+
+              {/* ==== BUTTON 1: Explore Articles ==== */}
               <button
                 onClick={scrollToContent}
-                className="group px-7 py-3 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium shadow-lg hover:shadow-violet-500/50 hover:scale-80 transition-all duration-100 relative overflow-hidden"
+                className="group px-7 py-3 rounded-full 
+             bg-gradient-to-r from-violet-500 to-indigo-500 
+             text-white font-medium text-sm
+             shadow-lg 
+             w-full sm:w-auto
+             transition-all duration-200 
+             relative overflow-hidden"
               >
-                <span className="relative underline z-10">Explore Articles</span>
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-100"></div>
+
+                <span className="relative z-10">Explore Articles</span>
+
+                <div className="
+      absolute inset-0 bg-white/20 
+      translate-y-full group-hover:translate-y-0 
+      transition-transform duration-300
+    "></div>
               </button>
 
+              {/* ==== BUTTON 2: Learn More ==== */}
               <button
                 onClick={scrollToHowItWorks}
-                className="px-7 underline py-3 rounded-full border-2 border-violet-400/50 text-gray-200 hover:bg-violet-500/20 hover:border-violet-400 transition-all duration-300 backdrop-blur-sm"
+                className="px-7 py-3 rounded-full border-2 border-violet-400/50 
+             text-gray-200 text-sm
+             hover:bg-violet-500/20 
+             w-full sm:w-auto
+             transition-all duration-200 backdrop-blur-sm"
               >
+
                 Learn More
               </button>
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0 }}
+              initial4={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-md mb-7 text-gray-500"
+              className="text-xs sm:text-sm md:text-md md:mb-7px relative top-10 mt-4 sm:mb-4 text-gray-500"
             >
               Trusted by readers who prefer insight over speculation.
             </motion.p>
@@ -166,25 +202,32 @@ const Dashboards = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="mt-6"
+              className="mt-3 sm:mt-4 md:mt-6 w-full px-4 sm:px-0 sm:w-auto "
             >
               <button
                 onClick={() => navigate("/investment-plans")}
                 className="
-      relative px-14 py-4 rounded-full font-semibold text-lg tracking-wide
-      text-[#E8FFF9]
-      bg-gradient-to-r from-[#002920] via-[#01463B] to-[#002920]
-      shadow-[0_0_22px_rgba(0,255,170,0.18)]
-      border border-[#045f4c]
-      transition-all duration-300 overflow-hidden
-      hover:scale-[1.08]
-      hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]
-      hover:border-[#0affc6]
-    "
+    relative w-full h-24 md:top-12 sm:w-auto 
+    px-8 sm:px-12 md:px-14 
+    py-4 sm:py-4 md:py-4              /* ⭐ Increased mobile height */
+    rounded-full font-semibold 
+    text-xl sm:text-lg tracking-wide
+    text-[#E8FFF9]
+    bg-gradient-to-r from-[#002920] via-[#01463B] to-[#002920]
+    shadow-[0_0_22px_rgba(0,255,170,0.18)]
+    border border-[#045f4c]
+    transition-all duration-300 overflow-hidden
+    hover:scale-105 sm:hover:scale-[1.08]
+    hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]
+    hover:border-[#0affc6]
+    mt-20 sm:mt-8 md:mt-1
+    flex justify-center
+  "
               >
-                <span className="relative text-gray z-20 flex items-center gap-3">
-                  View Investment Plans
-                  <span className="text-[#6FFFD2] text-2xl">→</span>
+
+                <span className="relative text-gray z-20 flex items-center justify-center gap-2 sm:gap-3">
+                  <span className="whitespace-nowrap">View Investment Plans</span>
+                  <span className="text-[#6FFFD2] text-xl sm:text-2xl">→</span>
                 </span>
 
                 {/* Fintech Shine Animation */}
@@ -202,9 +245,9 @@ const Dashboards = () => {
 
           </div>
 
-          {/* Mouse Reactive Light */}
+          {/* Mouse Reactive Light - Only on larger screens */}
           <div
-            className="pointer-events-none fixed inset-0 z-10"
+            className="pointer-events-none fixed inset-0 z-10 hidden md:block"
             style={{
               background: `radial-gradient(
                 600px at ${mousePos.x}px ${mousePos.y}px,
@@ -222,8 +265,8 @@ const Dashboards = () => {
                 key={i}
                 className="absolute w-1 h-1 bg-violet-400/30 rounded-full"
                 initial={{
-                  x: Math.random() * window.innerWidth,
-                  y: Math.random() * window.innerHeight,
+                  x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                  y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
                   scale: Math.random() * 0.5 + 0.5
                 }}
                 animate={{
@@ -242,7 +285,7 @@ const Dashboards = () => {
       </div>
 
       {/* ================= WHITE SECTION ================= */}
-      <section ref={contentRef} className="bg-gradient-to-b from-white to-gray-50 py-28 px-6 relative">
+      <section ref={contentRef} className="bg-gradient-to-b from-white to-gray-50 py-16 sm:py-20 md:py-28 px-4 sm:px-6 relative">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-200 to-transparent"></div>
 
@@ -252,13 +295,13 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-extrabold text-gray-900 max-w-4xl"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 max-w-4xl leading-tight"
           >
             Empowering{" "}
             <span className="text-violet-600 relative inline-block">
               Your Investment Decisions
               <motion.svg
-                className="absolute -bottom-2 left-0 w-full"
+                className="absolute -bottom-1 sm:-bottom-2 left-0 w-full"
                 initial={{ pathLength: 0 }}
                 whileInView={{ pathLength: 1 }}
                 viewport={{ once: true }}
@@ -280,7 +323,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-8 text-gray-600 max-w-3xl text-lg leading-relaxed"
+            className="mt-6 sm:mt-8 text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed"
           >
             We champion financial inclusion by offering everyone, regardless of
             background, free access to comprehensive and engaging articles on
@@ -289,11 +332,11 @@ const Dashboards = () => {
           </motion.p>
 
           {/* Features with enhanced cards */}
-          <div className="mt-20 grid md:grid-cols-3 gap-8">
+          <div className="mt-12 sm:mt-16 md:mt-20 grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               { num: "1", title: "Expert Articles", desc: "Access articles written by experienced and independent finance professionals.", color: "indigo" },
               { num: "2", title: "Free Access", desc: "Enjoy free access to insightful articles, technical analysis, and market data.", color: "indigo" },
-              { num: "3", title: "Publish and Earn", desc: "   Share your insights, build your audience, and earn.", color: "indigo" }
+              { num: "3", title: "Publish and Earn", desc: "Share your insights, build your audience, and earn.", color: "indigo" }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -305,18 +348,18 @@ const Dashboards = () => {
                 className="relative group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-100 to-indigo-100 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-                <div className="relative bg-gray-100 p-8 rounded-2xl border border-gray-200 group-hover:border-violet-200 transition-all duration-300 shadow-sm group-hover:shadow-blue-950">
-                  <span className={`text-7xl font-bold bg-gradient-to-br from-${item.color}-400 to-${item.color}-600 bg-clip-text text-transparent`}>
+                <div className="relative bg-gray-100 p-6 sm:p-8 rounded-2xl border border-gray-200 group-hover:border-violet-200 transition-all duration-300 shadow-sm group-hover:shadow-blue-950">
+                  <span className={`text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br from-${item.color}-400 to-${item.color}-600 bg-clip-text text-transparent`}>
                     {item.num}
                   </span>
-                  <h3 className="mt-6 text-xl font-semibold text-gray-900">
+                  <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-gray-900">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-gray-600 leading-relaxed">
+                  <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 leading-relaxed">
                     {item.desc}
                   </p>
                   <motion.div
-                    className="mt-4 w-12 h-1 bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full"
+                    className="mt-3 sm:mt-4 w-10 sm:w-12 h-1 bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full"
                     initial={{ width: 0 }}
                     whileInView={{ width: 48 }}
                     viewport={{ once: true }}
@@ -330,7 +373,7 @@ const Dashboards = () => {
       </section>
 
       {/* ================= HOW IT WORKS SECTION ================= */}
-      <section ref={howItWorksRef} className="bg-gradient-to-b from-gray-50 via-violet-50/30 to-white py-28 px-6 relative overflow-hidden">
+      <section ref={howItWorksRef} className="bg-gradient-to-b from-gray-50 via-violet-50/30 to-white py-16 sm:py-20 md:py-28 px-4 sm:px-6 relative overflow-hidden">
         {/* Decorative line above */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-300 to-transparent"></div>
 
@@ -346,7 +389,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-mono font-bold text-gray-900 text-center mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-mono font-bold text-gray-900 text-center mb-3 sm:mb-4"
           >
             How <span className="text-violet-600">KAVIX</span> Works
           </motion.h2>
@@ -356,16 +399,16 @@ const Dashboards = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-center text:md text-gray-600 mb-20 max-w-2xl mx-auto"
+            className="text-center text-sm sm:text-base md:text-md text-gray-600 mb-12 sm:mb-16 md:mb-20 max-w-2xl mx-auto px-4"
           >
             Three simple steps to transform your investment journey
           </motion.p>
 
           <div className="relative">
-            {/* Connecting line */}
+            {/* Connecting line - Hidden on mobile */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-violet-200 via-indigo-300 to-purple-200"></div>
 
-            <div className="space-y-32">
+            <div className="space-y-16 sm:space-y-24 md:space-y-32">
               {[
                 {
                   num: 1,
@@ -398,11 +441,11 @@ const Dashboards = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className={`flex flex-col ${step.align === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 relative`}
+                  className={`flex flex-col ${step.align === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-6 sm:gap-8 md:gap-12 relative`}
                 >
-                  {/* Number badge */}
+                  {/* Number badge - Hidden on mobile, shown on desktop */}
                   <motion.div
-                    className="absolute left-1/2 -translate-x-1/2 hidden md:flex w-16 h-16 rounded-full bg-white border-4 border-violet-500 items-center justify-center text-2xl font-bold text-violet-600 shadow-lg z-10"
+                    className="absolute left-1/2 -translate-x-1/2 hidden md:flex w-14 sm:w-16 h-14 sm:h-16 rounded-full bg-white border-4 border-violet-500 items-center justify-center text-xl sm:text-2xl font-bold text-violet-600 shadow-lg z-10"
                     whileInView={{ scale: [0, 1.2, 1] }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -410,20 +453,20 @@ const Dashboards = () => {
                     {step.num}
                   </motion.div>
 
-                  <div className="flex-1 relative group">
+                  <div className="flex-1 relative group w-full">
                     <motion.div
                       whileHover={{ y: -5 }}
                       className="relative"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-violet-200 to-indigo-200 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-                      <div className="relative bg-white p-8 rounded-2xl border border-gray-200 group-hover:border-violet-300 transition-all duration-300 shadow-lg">
-                        <div className="w-12 h-12 md:hidden rounded-full bg-violet-600 text-white flex items-center justify-center text-xl font-bold mb-6">
+                      <div className="relative bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 group-hover:border-violet-300 transition-all duration-300 shadow-lg">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 md:hidden rounded-full bg-violet-600 text-white flex items-center justify-center text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                           {step.num}
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
                           {step.title}
                         </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed">
+                        <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                           {step.desc}
                         </p>
                       </div>
@@ -431,13 +474,13 @@ const Dashboards = () => {
                   </div>
 
                   <motion.div
-                    className={`flex-1 bg-gradient-to-br ${step.gradient} rounded-2xl p-12 h-64 flex items-center justify-center shadow-2xl relative overflow-hidden group`}
+                    className={`flex-1 bg-gradient-to-br ${step.gradient} rounded-2xl p-8 sm:p-10 md:p-12 h-48 sm:h-56 md:h-64 flex items-center justify-center shadow-2xl relative overflow-hidden group w-full`}
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <motion.div
-                      className="text-7xl relative z-10"
+                      className="text-5xl sm:text-6xl md:text-7xl relative z-10"
                       animate={{
                         y: [0, -10, 0],
                         rotate: [0, 5, 0, -5, 0]
@@ -459,19 +502,19 @@ const Dashboards = () => {
       </section>
 
       {/* ================= STATS SECTION ================= */}
-      <section className="py-20 px-6 bg-white relative">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-12 shadow-2xl relative overflow-hidden"
+          className="max-w-6xl mx-auto bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden"
         >
           {/* Animated background */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-violet-500 to-indigo-500 animate-pulse"></div>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-12 text-center relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 text-center relative z-10">
             {[
               { end: 200, label: "Expert Articles", duration: 1500 },
               { end: 1000, label: "Active Readers", duration: 2000 },
@@ -489,10 +532,10 @@ const Dashboards = () => {
               >
                 <div className="absolute inset-0 bg-violet-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity blur-xl"></div>
                 <div className="relative">
-                  <div className="text-5xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
                     {stat.static || <><CountUp end={stat.end} duration={stat.duration} />+</>}
                   </div>
-                  <div className="mt-3 text-gray-400 text-lg font-medium">{stat.label}</div>
+                  <div className="mt-2 sm:mt-3 text-gray-400 text-sm sm:text-base md:text-lg font-medium">{stat.label}</div>
                 </div>
               </motion.div>
             ))}
@@ -501,10 +544,10 @@ const Dashboards = () => {
       </section>
 
       {/* ================= CTA SECTION ================= */}
-      <section className="bg-gradient-to-b from-white to-violet-50/30 py-32 px-6 relative overflow-hidden">
+      <section className="bg-gradient-to-b from-white to-violet-50/30 py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
         {/* Decorative circles */}
-        <div className="absolute top-10 right-10 w-64 h-64 bg-violet-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-indigo-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-5 sm:top-10 right-5 sm:right-10 w-48 sm:w-64 h-48 sm:h-64 bg-violet-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-5 sm:bottom-10 left-5 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-indigo-200/30 rounded-full blur-3xl"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.h2
@@ -512,7 +555,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-bold text-gray-900"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
           >
             Ready to Make{" "}
             <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
@@ -525,7 +568,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 text-gray-600 text-lg max-w-2xl mx-auto"
+            className="mt-4 sm:mt-6 text-gray-600 text-base sm:text-lg max-w-2xl mx-auto px-4"
           >
             Join thousands of investors who trust KAVIX for clear, actionable market insights.
           </motion.p>
@@ -533,26 +576,26 @@ const Dashboards = () => {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-gradient-to-b from-gray-950 to-black text-gray-400 py-1 relative overflow-hidden">
+      <footer className="bg-gradient-to-b from-gray-950 to-black text-gray-400 py-8 sm:py-10 md:py-12 relative overflow-hidden">
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-[0.02]" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
           backgroundSize: '30px 30px'
         }}></div>
 
-        <div className="max-w-6xl mx-auto text-center relative z-10">
+        <div className="max-w-6xl mx-auto text-center relative z-10 px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-3 mb-6"
+            className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6"
           >
             <motion.span
-              className="w-12 h-12 flex items-center justify-center relative top-4"
+              className="w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center relative top-3 sm:top-4"
             >
               <LogoK />
             </motion.span>
-            <div className="text-2xl font-bold relative top-4 bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+            <div className="text-xl sm:text-2xl font-bold relative top-3 sm:top-4 bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
               KAVIX
             </div>
           </motion.div>
@@ -562,7 +605,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-sm text-gray-400 mb-2"
+            className="text-xs sm:text-sm text-gray-400 mb-2 px-4"
           >
             © 2025 <span className="font-semibold text-gray-200">KAVIX</span>.
             Every market has a story.
@@ -575,7 +618,7 @@ const Dashboards = () => {
             transition={{ delay: 0.2 }}
             className="inline-block"
           >
-            <p className="text-xs text-gray-500 tracking-wide">
+            <p className="text-xs text-gray-500 tracking-wide px-4">
               Crafted with precision by{" "}
               <span className="text-violet-400 font-semibold">Sneha Sharma</span>
             </p>
@@ -583,7 +626,7 @@ const Dashboards = () => {
 
           {/* Decorative line */}
           <motion.div
-            className="mt-3 mb-3 h-px w-64 mx-auto bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"
+            className="mt-3 mb-3 h-px w-48 sm:w-64 mx-auto bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
