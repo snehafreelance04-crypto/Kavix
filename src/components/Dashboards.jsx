@@ -98,7 +98,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[48rem] sm:h-full" 
+          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[48rem] sm:h-[1000px]" 
         >
           <Navbar />
 
@@ -192,7 +192,7 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
               initial4={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-xs sm:text-sm md:text-md md:mb-7px relative top-10 mt-4 sm:mb-4 text-gray-500"
+              className="text-xs sm:text-sm md:text-md relative top-10 mt-4 sm:mb-4 text-gray-500"
             >
               Trusted by readers who prefer insight over speculation.
             </motion.p>
@@ -202,7 +202,7 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="mt-3 sm:mt-4 md:mt-6 w-full px-4 sm:px-0 sm:w-auto "
+              className="mt-3 relative bottom-9 sm:mt-4 w-full sm:px-0 sm:w-auto "
             >
               <button
                 onClick={() => navigate("/investment-plans")}
@@ -220,8 +220,8 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
     hover:scale-105 sm:hover:scale-[1.08]
     hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]
     hover:border-[#0affc6]
-    mt-20 sm:mt-8 md:mt-1
-    flex justify-center
+    mt-28 sm:mt-8 md:mt-1
+    flex justify-center bottom-5
   "
               >
 
@@ -359,7 +359,7 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
                     {item.desc}
                   </p>
                   <motion.div
-                    className="mt-3 sm:mt-4 w-10 sm:w-12 h-1 bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full"
+                    className=" h-1 bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full"
                     initial={{ width: 0 }}
                     whileInView={{ width: 48 }}
                     viewport={{ once: true }}

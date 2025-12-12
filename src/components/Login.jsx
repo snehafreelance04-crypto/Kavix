@@ -14,7 +14,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // ✅ Login validation
+  // Login validation
   const handleLogin = () => {
     if (!email || !password) {
       setError("⚠ Please fill all fields");
@@ -24,27 +24,28 @@ export default function Login() {
     setOpenPopup(true);
   };
 
-  // ✅ Auto redirect after popup (2 sec)
+  // Auto redirect after popup
   useEffect(() => {
     if (openPopup) {
       const timer = setTimeout(() => {
         navigate("/");
       }, 2000);
-
       return () => clearTimeout(timer);
     }
   }, [openPopup, navigate]);
 
   return (
-    <div className="relative min-h-screen flex">
+    <div className="relative min-h-screen flex md:flex-row flex-col bg-white">
 
-      {/* Left white background */}
-      <div className="w-1/2 bg-white"></div>
+      {/* LEFT WHITE SIDE — DESKTOP ONLY */}
+      <div className="hidden md:block w-1/2 bg-white"></div>
 
-      {/* Right image section */}
+      {/* RIGHT IMAGE SIDE — DESKTOP ONLY */}
       <div
-        className="w-1/2 h-screen bg-[url('https://img.freepik.com/free-photo/abstract-background-with-dark-blue-grunge-texture_1048-20452.jpg?w=740')] bg-cover bg-center flex items-center justify-center">
-          
+        className="hidden md:flex w-1/2 h-screen 
+        bg-[url('https://img.freepik.com/free-photo/abstract-background-with-dark-blue-grunge-texture_1048-20452.jpg?w=740')] 
+        bg-cover bg-center items-center justify-center"
+      >
         <div className="max-w-xl text-center text-white px-10">
           <h1 className="text-7xl font-bold leading-tight">
             Every Stock <br /> Has a Story
@@ -56,13 +57,25 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Login Card */}
-      <div className="absolute left-1/2 top-6 -translate-x-[90%] w-[600px] min-h-[94vh] bg-white border border-gray-300 rounded-2xl shadow-2xl z-10 px-14 py-10">
-
-        {/* ✅ Back button redirect */}
+      {/* LOGIN CARD */}
+      <div
+        className="
+          absolute md:left-1/2 md:top-6 
+          md:-translate-x-[90%] 
+          w-full max-w-md mx-auto
+          md:w-[600px]
+          min-h-[94vh]
+          bg-white border border-gray-300 rounded-2xl shadow-2xl 
+          z-10 px-6 sm:px-10 md:px-14 py-10
+        "
+      >
+        {/* HOME — CENTERED ON MOBILE */}
         <button
           onClick={() => navigate("/")}
-          className="text-gray-700 font-serif hover:text-black text-lg mb-6"
+          className="
+            text-gray-700 font-serif hover:text-black text-lg mb-6
+            block mx-auto md:mx-0
+          "
         >
           ← Home
         </button>
@@ -79,7 +92,7 @@ export default function Login() {
 
         <h2 className="text-3xl font-bold mb-8 text-blue-950">Log In</h2>
 
-        {/* Email */}
+        {/* EMAIL */}
         <div className="mb-6">
           <label className="block text-sm font-semibold mb-2">
             Your Email Address
@@ -93,7 +106,7 @@ export default function Login() {
           />
         </div>
 
-        {/* Password */}
+        {/* PASSWORD */}
         <div className="mb-4 relative">
           <label className="block text-sm font-semibold mb-2">Password</label>
           <input
@@ -111,9 +124,9 @@ export default function Login() {
           </span>
         </div>
 
-        {/* Remember + Forgot */}
+        {/* Remember */}
         <div className="flex justify-between font-normal items-center text-md mb-4">
-          <label className="flex items-center  gap-2">
+          <label className="flex items-center gap-2">
             <input type="checkbox" /> Remember me
           </label>
           <span className="cursor-pointer">Forgot Password</span>
@@ -121,9 +134,11 @@ export default function Login() {
 
         {/* Terms */}
         <p className="text-sm text-gray-500 leading-relaxed mb-4">
-          By creating account, I accept the <span className=" text-black font-bold cursor-pointer">Terms of Conditions </span> and have read and accept the {" "}
-          <span className=" text-black font-bold cursor-pointer">Terms</span> and{" "}
-          <span className=" text-black font-bold cursor-pointer">Privacy Policy</span>.
+          By creating account, I accept the{" "}
+          <span className="text-black font-bold cursor-pointer">Terms of Conditions</span>{" "}
+          and have read and accept the{" "}
+          <span className="text-black font-bold cursor-pointer">Terms</span> and{" "}
+          <span className="text-black font-bold cursor-pointer">Privacy Policy</span>.
         </p>
 
         {/* Login Button */}
@@ -135,9 +150,7 @@ export default function Login() {
         </button>
 
         {error && (
-          <p className="text-red-600 text-sm mt-3 text-center">
-            {error}
-          </p>
+          <p className="text-red-600 text-sm mt-3 text-center">{error}</p>
         )}
 
         {/* Divider */}
@@ -150,10 +163,19 @@ export default function Login() {
         {/* Social */}
         <div className="flex gap-4 mb-6">
           <button className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              className="w-5"
+            />
           </button>
           <button className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2" width="20" height="20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#1877F2"
+              width="20"
+              height="20"
+            >
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.64c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.49 0-1.953.925-1.953 1.874v2.247h3.328l-.532 3.47h-2.796v8.385c5.737-.9 10.125-5.864 10.125-11.854z" />
             </svg>
           </button>
@@ -165,7 +187,7 @@ export default function Login() {
         </p>
       </div>
 
-      {/* ✅ Popup */}
+      {/* Popup */}
       {openPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white w-[420px] rounded-2xl shadow-2xl px-8 py-10 text-center relative">
@@ -179,7 +201,6 @@ export default function Login() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
