@@ -24,7 +24,7 @@ export default function Login() {
     setOpenPopup(true);
   };
 
-  // Auto redirect after popup
+  // Auto redirect
   useEffect(() => {
     if (openPopup) {
       const timer = setTimeout(() => {
@@ -42,9 +42,11 @@ export default function Login() {
 
       {/* RIGHT IMAGE SIDE — DESKTOP ONLY */}
       <div
-        className="hidden md:flex w-1/2 h-screen 
-        bg-[url('https://img.freepik.com/free-photo/abstract-background-with-dark-blue-grunge-texture_1048-20452.jpg?w=740')] 
-        bg-cover bg-center items-center justify-center"
+        className="
+          hidden md:flex w-1/2 h-screen 
+          bg-[url('https://img.freepik.com/free-photo/abstract-background-with-dark-blue-grunge-texture_1048-20452.jpg?w=740')] 
+          bg-cover bg-center items-center justify-center
+        "
       >
         <div className="max-w-xl text-center text-white px-10">
           <h1 className="text-7xl font-bold leading-tight">
@@ -57,11 +59,13 @@ export default function Login() {
         </div>
       </div>
 
-      {/* LOGIN CARD */}
+      {/* LOGIN CARD — EXACT OLD LAYOUT RESTORED */}
       <div
         className="
-          absolute md:left-1/2 md:top-6 
-          md:-translate-x-[90%] 
+          absolute 
+          md:left-1/2 
+          md:top-6 
+          md:-translate-x-[80%] 
           w-full max-w-md mx-auto
           md:w-[600px]
           min-h-[94vh]
@@ -69,11 +73,12 @@ export default function Login() {
           z-10 px-6 sm:px-10 md:px-14 py-10
         "
       >
-        {/* HOME — CENTERED ON MOBILE */}
+        {/* HOME BUTTON */}
         <button
           onClick={() => navigate("/home")}
           className="
-            text-gray-700 font-serif hover:text-black text-lg mb-6
+            text-gray-700 font-serif hover:text-black 
+            text-lg mb-6 
             block mx-auto md:mx-0
           "
         >
@@ -135,10 +140,10 @@ export default function Login() {
         {/* Terms */}
         <p className="text-sm text-gray-500 leading-relaxed mb-4">
           By creating account, I accept the{" "}
-          <span className="text-black font-bold cursor-pointer">Terms of Conditions</span>{" "}
-          and have read and accept the{" "}
-          <span className="text-black font-bold cursor-pointer">Terms</span> and{" "}
-          <span className="text-black font-bold cursor-pointer">Privacy Policy</span>.
+            <span className="text-black font-bold cursor-pointer">Terms of Conditions</span>{" "}
+            and have read and accept the{" "}
+            <span className="text-black font-bold cursor-pointer">Terms</span> and{" "}
+            <span className="text-black font-bold cursor-pointer">Privacy Policy</span>.
         </p>
 
         {/* Login Button */}
