@@ -98,7 +98,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[46rem] sm:h-[1000px]" 
+          className="w-full sm:w-[97%] z-1000  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[46rem] sm:h-[1000px]" 
         >
           <Navbar />
 
@@ -107,7 +107,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
             className="
 flex flex-col items-center justify-center
 mt-20 sm:mt-20 md:mt-24 lg:mt-28
-px-4 sm:px-6 text-center relative z-1000
+px-4 sm:px-6 text-center relative z-20
 space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
 "
           >
