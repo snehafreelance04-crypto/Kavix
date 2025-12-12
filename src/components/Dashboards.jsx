@@ -98,7 +98,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-full sm:w-[97%] z-50  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[46rem] sm:h-[1000px]" 
+          className="w-full sm:w-[97%] z-50  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[46rem] sm:h-[800px]" 
         >
           <Navbar />
 
@@ -156,22 +156,17 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
               {/* ==== BUTTON 1: Explore Articles ==== */}
               <button
                 onClick={scrollToContent}
-                className="group px-7 py-3 rounded-full 
-             bg-gradient-to-r from-violet-500 to-indigo-500 
+                className="group px-7 py-3 rounded-full border-2 border-violet-400/50
+                hover:bg-violet-500/20  
              text-white font-medium text-sm
              shadow-lg 
-             w-full sm:w-auto
-             transition-all duration-200 
+             w-full sm:w-auto 
              relative overflow-hidden"
               >
 
                 <span className="relative z-10">Explore Articles</span>
 
-                <div className="
-      absolute inset-0 bg-white/20 
-      translate-y-full group-hover:translate-y-0 
-      transition-transform duration-300
-    "></div>
+              
               </button>
 
               {/* ==== BUTTON 2: Learn More ==== */}
