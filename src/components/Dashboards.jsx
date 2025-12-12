@@ -1,6 +1,7 @@
 // Dashboards.jsx
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // Import your actual components
 import Navbar from "./Navbar";
@@ -57,7 +58,7 @@ const CountUp = ({ end, duration = 2000 }) => {
 
 const Dashboards = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [showPlans, setShowPlans] = useState(false); // moved here
+  const navigate = useNavigate();
   const contentRef = useRef(null);
   const howItWorksRef = useRef(null);
   const hasAnimated = sessionStorage.getItem("dashboardAnimated");
@@ -77,19 +78,6 @@ const Dashboards = () => {
 
   const scrollToHowItWorks = () => {
     howItWorksRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Modal animation variants (fade + scale)
-  const modalBackdrop = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const modalBox = {
-    hidden: { opacity: 0, scale: 0.92, y: -10 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.28, ease: "easeOut" } },
-    exit: { opacity: 0, scale: 0.96, y: -6, transition: { duration: 0.18, ease: "easeIn" } },
   };
 
   return (
@@ -145,20 +133,20 @@ const Dashboards = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="flex gap-5 flex-wrap justify-center mb-10"
             >
               <button
                 onClick={scrollToContent}
-                className="group px-7 py-3 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium shadow-lg hover:shadow-violet-500/50 hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                className="group px-7 py-3 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium shadow-lg hover:shadow-violet-500/50 hover:scale-80 transition-all duration-100 relative overflow-hidden"
               >
-                <span className="relative z-10">Explore Articles</span>
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <span className="relative underline z-10">Explore Articles</span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-100"></div>
               </button>
 
               <button
                 onClick={scrollToHowItWorks}
-                className="px-7 py-3 rounded-full border-2 border-violet-400/50 text-gray-200 hover:bg-violet-500/20 hover:border-violet-400 transition-all duration-300 backdrop-blur-sm"
+                className="px-7 underline py-3 rounded-full border-2 border-violet-400/50 text-gray-200 hover:bg-violet-500/20 hover:border-violet-400 transition-all duration-300 backdrop-blur-sm"
               >
                 Learn More
               </button>
@@ -168,12 +156,12 @@ const Dashboards = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-sm text-gray-500"
+              className="text-md mb-7 text-gray-500"
             >
               Trusted by readers who prefer insight over speculation.
             </motion.p>
 
-            {/* NEW BUTTON ADDED — NOTHING ELSE CHANGED */}
+            {/* UPDATED BUTTON - NOW NAVIGATES TO ROUTE */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -181,106 +169,38 @@ const Dashboards = () => {
               className="mt-6"
             >
               <button
-                onClick={() => setShowPlans(true)}
-                className="px-8 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full font-semibold shadow-lg hover:shadow-indigo-500/50 hover:scale-105 transition-all duration-300"
+                onClick={() => navigate("/investment-plans")}
+                className="
+      relative px-14 py-4 rounded-full font-semibold text-lg tracking-wide
+      text-[#E8FFF9]
+      bg-gradient-to-r from-[#002920] via-[#01463B] to-[#002920]
+      shadow-[0_0_22px_rgba(0,255,170,0.18)]
+      border border-[#045f4c]
+      transition-all duration-300 overflow-hidden
+      hover:scale-[1.08]
+      hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]
+      hover:border-[#0affc6]
+    "
               >
-                View Investment Plans
+                <span className="relative text-gray z-20 flex items-center gap-3">
+                  View Investment Plans
+                  <span className="text-[#6FFFD2] text-2xl">→</span>
+                </span>
+
+                {/* Fintech Shine Animation */}
+                <span
+                  className="
+        absolute inset-0
+        bg-gradient-to-r from-transparent via-emerald-200/20 to-transparent
+        translate-x-[-130%]
+        hover:translate-x-[130%]
+        transition-transform duration-900 ease-out
+      "
+                />
               </button>
             </motion.div>
+
           </div>
-
-          {/* ================= POPUP (placed INSIDE the purple card) ================= */}
-          <AnimatePresence>
-            {showPlans && (
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center z-30 p-6 pointer-events-none"
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                variants={modalBackdrop}
-              >
-                <motion.div
-                  className="pointer-events-auto w-full max-w-4xl rounded-2xl bg-white/95 backdrop-blur-sm p-8 shadow-2xl border border-gray-200"
-                  variants={modalBox}
-                  role="dialog"
-                  aria-modal="true"
-                >
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-2xl font-bold text-gray-900">Investment Plans</h3>
-                    <button
-                      onClick={() => setShowPlans(false)}
-                      className="text-gray-600 hover:text-gray-900 text-2xl"
-                      aria-label="Close plans"
-                    >
-                      ✕
-                    </button>
-                  </div>
-
-                  <p className="mt-2 text-sm text-gray-600 max-w-2xl">
-                    Choose a plan that fits your investment style. You can always upgrade later.
-                  </p>
-
-                  <div className="grid md:grid-cols-3 gap-6 mt-6">
-                    {/* BASIC */}
-                    <div className="p-5 rounded-xl border border-gray-200 shadow-sm bg-white">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-semibold">Basic</h4>
-                        <div className="text-sm text-gray-500">Starter</div>
-                      </div>
-                      <p className="text-gray-600 mt-3 text-sm">For beginners starting their investment journey.</p>
-                      <div className="text-3xl font-bold mt-4">₹199<span className="text-base font-medium text-gray-500">/mo</span></div>
-                      <ul className="mt-4 text-gray-600 space-y-2 text-sm">
-                        <li>✔ Access to basic articles</li>
-                        <li>✔ Beginner guides</li>
-                        <li>✔ Weekly insights</li>
-                      </ul>
-                      <button className="mt-6 w-full py-2 bg-violet-600 text-white rounded-full hover:bg-violet-700 transition">
-                        Choose Plan
-                      </button>
-                    </div>
-
-                    {/* PRO */}
-                    <div className="p-5 rounded-xl border border-violet-300 bg-gradient-to-b from-violet-50 to-white shadow-lg">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-semibold text-violet-700">Pro</h4>
-                        <div className="text-sm text-violet-600">Most Popular</div>
-                      </div>
-                      <p className="text-gray-700 mt-3 text-sm">Perfect for serious long-term investors.</p>
-                      <div className="text-3xl font-bold mt-4 text-violet-700">₹499<span className="text-base font-medium text-gray-500">/mo</span></div>
-                      <ul className="mt-4 text-gray-700 space-y-2 text-sm">
-                        <li>✔ All Basic features</li>
-                        <li>✔ Deep market analysis</li>
-                        <li>✔ Daily stock insights</li>
-                        <li>✔ Priority updates</li>
-                      </ul>
-                      <button className="mt-6 w-full py-2 bg-violet-700 text-white rounded-full hover:bg-violet-800 transition">
-                        Choose Plan
-                      </button>
-                    </div>
-
-                    {/* PREMIUM */}
-                    <div className="p-5 rounded-xl border border-gray-200 shadow-sm bg-white">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-semibold">Premium</h4>
-                        <div className="text-sm text-gray-500">Advanced</div>
-                      </div>
-                      <p className="text-gray-600 mt-3 text-sm">For professionals and advanced investors.</p>
-                      <div className="text-3xl font-bold mt-4">₹999<span className="text-base font-medium text-gray-500">/mo</span></div>
-                      <ul className="mt-4 text-gray-600 space-y-2 text-sm">
-                        <li>✔ All Pro features</li>
-                        <li>✔ Real-time alerts</li>
-                        <li>✔ Portfolio support</li>
-                        <li>✔ Exclusive research</li>
-                      </ul>
-                      <button className="mt-6 w-full py-2 bg-violet-600 text-white rounded-full hover:bg-violet-700 transition">
-                        Choose Plan
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* Mouse Reactive Light */}
           <div
@@ -373,7 +293,7 @@ const Dashboards = () => {
             {[
               { num: "1", title: "Expert Articles", desc: "Access articles written by experienced and independent finance professionals.", color: "indigo" },
               { num: "2", title: "Free Access", desc: "Enjoy free access to insightful articles, technical analysis, and market data.", color: "indigo" },
-              { num: "3", title: "Publish and Earn", desc: "Publish your insights, grow your audience, and earn while contributing to market understanding.", color: "indigo" }
+              { num: "3", title: "Publish and Earn", desc: "   Share your insights, build your audience, and earn.", color: "indigo" }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -385,7 +305,7 @@ const Dashboards = () => {
                 className="relative group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-100 to-indigo-100 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-                <div className="relative bg-white p-8 rounded-2xl border border-gray-200 group-hover:border-violet-200 transition-all duration-300 shadow-sm group-hover:shadow-xl">
+                <div className="relative bg-gray-100 p-8 rounded-2xl border border-gray-200 group-hover:border-violet-200 transition-all duration-300 shadow-sm group-hover:shadow-blue-950">
                   <span className={`text-7xl font-bold bg-gradient-to-br from-${item.color}-400 to-${item.color}-600 bg-clip-text text-transparent`}>
                     {item.num}
                   </span>
@@ -426,7 +346,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-4"
+            className="text-4xl md:text-5xl font-mono font-bold text-gray-900 text-center mb-4"
           >
             How <span className="text-violet-600">KAVIX</span> Works
           </motion.h2>
@@ -436,7 +356,7 @@ const Dashboards = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-center text-gray-600 mb-20 max-w-2xl mx-auto"
+            className="text-center text:md text-gray-600 mb-20 max-w-2xl mx-auto"
           >
             Three simple steps to transform your investment journey
           </motion.p>
