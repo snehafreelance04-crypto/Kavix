@@ -33,7 +33,8 @@ export default function Signup() {
 
   useEffect(() => {
     if (openPopup) {
-      const timer = setTimeout(() => navigate("/"), 2000);
+      const timer = setTimeout(() => navigate("/home")
+, 2000);
       return () => clearTimeout(timer);
     }
   }, [openPopup, navigate]);
@@ -73,7 +74,7 @@ export default function Signup() {
       >
         {/* Back Home button (center on mobile) */}
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
           className="text-gray-700 font-serif text-lg mb-6 block mx-auto md:mx-0"
         >
           ← Home

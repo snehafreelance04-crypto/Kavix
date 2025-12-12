@@ -98,7 +98,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
           onAnimationComplete={() =>
             sessionStorage.setItem("dashboardAnimated", "true")
           }
-          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[48rem] sm:h-[1000px]" 
+          className="w-full sm:w-[97%]  rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#160523] to-[#05010a] shadow-2xl relative overflow-hidden border border-violet-500/20 h-[46rem] sm:h-[1000px]" 
         >
           <Navbar />
 

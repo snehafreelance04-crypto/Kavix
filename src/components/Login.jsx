@@ -28,7 +28,7 @@ export default function Login() {
   useEffect(() => {
     if (openPopup) {
       const timer = setTimeout(() => {
-        navigate("/");
+        navigate("/home");
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -71,7 +71,7 @@ export default function Login() {
       >
         {/* HOME — CENTERED ON MOBILE */}
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
           className="
             text-gray-700 font-serif hover:text-black text-lg mb-6
             block mx-auto md:mx-0
