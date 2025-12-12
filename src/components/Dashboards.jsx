@@ -107,7 +107,7 @@ min-h-[560px] sm:min-h-[700px] md:min-h-[780px] flex justify-center items-start 
             className="
 flex flex-col items-center justify-center
 mt-20 sm:mt-20 md:mt-24 lg:mt-28
-px-4 sm:px-6 text-center relative z-20
+px-4 sm:px-6 text-center relative z-1000
 space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
 "
           >

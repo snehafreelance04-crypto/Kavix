@@ -4,13 +4,10 @@ import LogoK from "./LogoK";
 import Dashboards from "./Dashboards";
 
 export default function Intro_final() {
-  // Detect if intro should play
+  // Detect if page was loaded fresh (typed URL, new tab, refresh)
   const navType = performance.getEntriesByType("navigation")[0]?.type;
 
-  const isInternalNav = sessionStorage.getItem("internalNav") === "true";
-
-  const shouldPlayIntro =
-    !isInternalNav && (navType === "reload" || navType === "navigate");
+  const shouldPlayIntro = navType === "reload" || navType === "navigate";
 
   const [stage, setStage] = useState(shouldPlayIntro ? "logo" : "done");
   const [phraseIndex, setPhraseIndex] = useState(0);
@@ -21,7 +18,7 @@ export default function Intro_final() {
     "Invest With Confidence"
   ];
 
-  // Run intro timing
+  // INTRO ANIMATION HANDLER
   useEffect(() => {
     if (stage === "done") return;
 
@@ -40,8 +37,6 @@ export default function Intro_final() {
     timers.push(
       setTimeout(() => {
         setStage("done");
-        // When intro finishes, internal nav allowed
-        sessionStorage.setItem("internalNav", "true");
       }, start + phrases.length * step + 900)
     );
 
@@ -64,12 +59,12 @@ export default function Intro_final() {
   const slideLeftK = {
     initial: { x: 0 },
     animate: {
-      x: -10,
-      transition: { type: "spring", stiffness: 35, damping: 18 }
+      x: -15,
+      transition: { type: "spring", stiffness: 40, damping: 20 }
     }
   };
 
-  // Phrase Renderer
+  // Render phrase animations
   const renderPhrase = () => {
     const phrase = phrases[phraseIndex];
     const color = phraseColors[phraseIndex];
@@ -77,7 +72,7 @@ export default function Intro_final() {
     return (
       <motion.div
         key={phraseIndex}
-        className="flex flex-wrap justify-center gap-3 px-4 text-center"
+        className="flex flex-wrap justify-center gap-3 px-3 text-center"
       >
         {phrase.split(" ").map((word, i) => (
           <motion.span
@@ -88,7 +83,7 @@ export default function Intro_final() {
             style={{
               fontFamily: font,
               fontWeight: 600,
-              fontSize: "clamp(28px, 7vw, 60px)",
+              fontSize: "clamp(30px, 8vw, 64px)", // BIGGER TEXT
               color,
               textShadow: `0 0 35px ${color}60`
             }}
@@ -108,7 +103,7 @@ export default function Intro_final() {
         {/* 1. LOGO */}
         {stage === "logo" && (
           <motion.div className="fixed inset-0 flex items-center justify-center">
-            <div className="scale-[0.7] sm:scale-90 md:scale-100">
+            <div className="scale-[0.75] sm:scale-90 md:scale-100">
               <LogoK color="#67e8f9" />
             </div>
           </motion.div>
@@ -118,17 +113,19 @@ export default function Intro_final() {
         {stage === "kavix" && (
           <motion.div className="fixed inset-0 flex items-center justify-center gap-2 sm:gap-3">
 
+            {/* FIXED SIZE LOGO */}
             <motion.div
               variants={slideLeftK}
               initial="initial"
               animate="animate"
               className="flex items-center"
             >
-              <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] flex items-center justify-center">
+              <div className="w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] flex items-center justify-center">
                 <LogoK skipAnimation={true} color="#67e8f9" />
               </div>
             </motion.div>
 
+            {/* LETTERS */}
             {Array.from("KAVIX").map((ch, i) => (
               <motion.span
                 key={i}
@@ -139,7 +136,7 @@ export default function Intro_final() {
                 style={{
                   fontFamily: font,
                   fontWeight: 900,
-                  fontSize: "clamp(38px, 10vw, 85px)",
+                  fontSize: "clamp(40px, 11vw, 90px)", // BIGGER TEXT
                   color: "#67e8f9",
                   textShadow: "0 0 45px rgba(103,232,249,0.5)"
                 }}
@@ -159,7 +156,7 @@ export default function Intro_final() {
 
       </AnimatePresence>
 
-      {/* FINAL PAGE */}
+      {/* 4. FINAL PAGE */}
       {stage === "done" && <Dashboards />}
     </div>
   );
