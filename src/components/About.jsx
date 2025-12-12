@@ -12,7 +12,7 @@ export default function About() {
 
         {/* BREADCRUMB */}
           
-        <div className="flex items-center gap-3 pt-10 px-44 text-lg text-gray-500"> <button onClick={() => navigate("/")} className="font-serif underline" ><span>›</span> Home </button>
+        <div className="flex items-center gap-3 pt-10 px-44 text-lg text-gray-500"> <button onClick={() => navigate("/")} className="font-serif underline" > Home </button>
 
         </div>
 

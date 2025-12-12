@@ -4,53 +4,40 @@ import LogoK from "./LogoK";
 import Navbar from "./Navbar";
 import Dashboards from "./Dashboards";
 
-
 export default function Intro_final() {
-  // Decide FIRST stage before component renders anything
   const [stage, setStage] = useState(() => {
     const played = localStorage.getItem("introPlayed");
     return played === "true" ? "done" : "logo";
   });
 
   const [phraseIndex, setPhraseIndex] = useState(0);
-
-  const phrases = [
-    "Smarter Analytics",
-    "VISION THAT LEADS",
-    "Invest With Confidence"
-  ];
-
+  const phrases = ["Smarter Analytics", "VISION THAT LEADS", "Invest With Confidence"];
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (stage !== "done") return;
 
-    const handleMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-
+    const handleMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMove);
+
     return () => window.removeEventListener("mousemove", handleMove);
   }, [stage]);
 
-
-  // Run intro animations ONLY if intro not played before
+  // INTRO TIMING (unchanged)
   useEffect(() => {
-    if (stage === "done") return;   // <-- VERY IMPORTANT
+    if (stage === "done") return;
 
     const timers = [];
-
     timers.push(setTimeout(() => setStage("kavix"), 1600));
     timers.push(setTimeout(() => setStage("phrases"), 3200));
 
     const start = 3200;
     const step = 1800;
 
-    phrases.forEach((_, i) => {
-      timers.push(setTimeout(() => setPhraseIndex(i), start + i * step));
-    });
+    phrases.forEach((_, i) =>
+      timers.push(setTimeout(() => setPhraseIndex(i), start + i * step))
+    );
 
-    // Final step → go to homepage + mark intro played
     timers.push(
       setTimeout(() => {
         setStage("done");
@@ -61,63 +48,33 @@ export default function Intro_final() {
     return () => timers.forEach((t) => clearTimeout(t));
   }, []);
 
-  // ------ Animations ------
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.7,
-        ease: [0.6, 0.01, 0.05, 0.95]
-      }
-    })
+  // ====================== RESPONSIVE FIXES ======================
+  const responsiveText = (desktop, tablet, mobile) => {
+    return `text-[${desktop}px] sm:text-[${tablet}px] text-[${mobile}px]`;
   };
 
-  const phraseColorClasses = ["#C7B7FF", "#7DE7F9", "#D0B8FF"];
   const phraseFont = "'Inter', sans-serif";
+  const phraseColorClasses = ["#C7B7FF", "#7DE7F9", "#D0B8FF"];
 
-  const slideLeftK = {
-    initial: { x: 0 },
-    animate: {
-      x: -40,
-      transition: { type: "spring", stiffness: 40, damping: 20 }
-    }
-  };
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: -40,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  // Render phrase based on index
+  // ========== Render Phrases Responsively ==========
   const renderPhrase = () => {
     const phrase = phrases[phraseIndex];
     const color = phraseColorClasses[phraseIndex];
 
-    // Phrase 0: "Smarter Analytics" - Letter by letter typewriter with glow pulse
+    const sharedStyle = {
+      fontFamily: phraseFont,
+      color,
+      textShadow: `0 0 30px ${color}60`,
+    };
+
+    // Phrase 1: Letter-by-letter
     if (phraseIndex === 0) {
-      const letters = phrase.split("");
       return (
         <motion.div
           key={phraseIndex}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="flex"
+          className="flex justify-center flex-wrap px-4 text-center"
         >
-          {letters.map((letter, i) => (
+          {phrase.split("").map((letter, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, y: 20, scale: 0.5 }}
@@ -125,21 +82,11 @@ export default function Intro_final() {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: {
-                  delay: i * 0.05,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15
-                }
+                transition: { delay: i * 0.05 },
               }}
               style={{
-                fontFamily: phraseFont,
-                fontWeight: 500,
-                fontSize: "54px",
-                color: color,
-                textShadow: `0 0 30px ${color}80, 0 0 60px ${color}40`,
-                display: letter === " " ? "inline-block" : "inline",
-                width: letter === " " ? "0.3em" : "auto"
+                ...sharedStyle,
+                fontSize: "clamp(28px, 6vw, 54px)", // RESPONSIVE FIX
               }}
             >
               {letter === " " ? "\u00A0" : letter}
@@ -149,123 +96,83 @@ export default function Intro_final() {
       );
     }
 
-    // Phrase 1: "VISION THAT LEADS" - Word by word from left/right
+    // Phrase 2: Word bouncing left/right
     if (phraseIndex === 1) {
-      const words = phrase.split(" ");
       return (
-        <motion.div
-          key={phraseIndex}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="flex gap-4"
-        >
-          {words.map((word, i) => (
+        <div className="flex flex-wrap justify-center gap-3 px-4 text-center">
+          {phrase.split(" ").map((word, i) => (
             <motion.span
               key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80, scale: 0.5 }}
-              animate={{
-                opacity: 1,
-                x: 0,
-                scale: 1,
-                transition: {
-                  delay: i * 0.15,
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 20
-                }
-              }}
+              initial={{ opacity: 0, x: i % 2 ? -80 : 80 }}
+              animate={{ opacity: 1, x: 0 }}
               style={{
-                fontFamily: phraseFont,
-                fontWeight: 700,
-                fontSize: "64px",
-                color: color,
-                textShadow: `0 0 30px ${color}40`
+                ...sharedStyle,
+                fontSize: "clamp(32px, 7vw, 64px)", // RESPONSIVE FIX
               }}
             >
               {word}
             </motion.span>
           ))}
-        </motion.div>
+        </div>
       );
     }
 
-    // Phrase 2: "Invest With Confidence" - Sequential from bottom
-    if (phraseIndex === 2) {
-      const words = phrase.split(" ");
-      return (
-        <motion.div
-          key={phraseIndex}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="flex gap-4"
-        >
-          {words.map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 60 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: i * 0.2,
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15
-                }
-              }}
-              style={{
-                fontFamily: phraseFont,
-                fontWeight: 500,
-                fontSize: "54px",
-                color: color,
-                textShadow: `0 0 30px ${color}40`
-              }}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.div>
-      );
-    }
+    // Phrase 3: Slide-up words
+    return (
+      <div className="flex flex-wrap justify-center gap-3 px-4 text-center">
+        {phrase.split(" ").map((word, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.15 }}
+            style={{
+              ...sharedStyle,
+              fontSize: "clamp(28px, 6vw, 54px)", // RESPONSIVE FIX
+            }}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </div>
+    );
   };
 
-  // -------------- UI ---------------
+  // ====================== UI ======================
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#160523] to-[#05010a] relative">
-      <AnimatePresence mode="wait">
 
-        {/* 1. INTRO LOGO */}
+      <AnimatePresence mode="wait">
+        {/* KAVIX INITIAL LOGO */}
         {stage === "logo" && (
           <motion.div className="fixed inset-0 flex items-center justify-center">
-            <LogoK color="#67e8f9" />
+            <div className="scale-[0.6] sm:scale-75 md:scale-100"> {/* responsive scale */}
+              <LogoK color="#67e8f9" />
+            </div>
           </motion.div>
         )}
 
-        {/* 2. K + KAVIX */}
+        {/* K + KAVIX TEXT */}
         {stage === "kavix" && (
-          <motion.div className="fixed inset-0 flex items-center justify-center gap-4">
-            <motion.div variants={slideLeftK} initial="initial" animate="animate">
-              <LogoK skipAnimation={true} color="#67e8f9" />
+          <motion.div className="fixed inset-0 flex items-center justify-center gap-3 sm:gap-4">
+            <motion.div initial={{ x: 0 }} animate={{ x: -40 }}>
+              <div className="scale-[0.6] sm:scale-75 md:scale-100">
+                <LogoK skipAnimation={true} color="#67e8f9" />
+              </div>
             </motion.div>
 
             {Array.from("KAVIX").map((ch, i) => (
               <motion.span
                 key={i}
                 custom={i}
-                variants={letterVariants}
-                initial="hidden"
-                animate="show"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-extrabold"
                 style={{
                   fontFamily: phraseFont,
-                  fontWeight: 1000,
-                  fontSize: "88px",
+                  fontSize: "clamp(42px, 12vw, 88px)", // RESPONSIVE FIX
                   color: "#67e8f9",
-                  marginInline: "2px",
-                  textShadow: "0 0 40px rgba(103, 232, 249, 0.5)"
+                  textShadow: "0 0 40px rgba(103,232,249,0.5)",
                 }}
               >
                 {ch}
@@ -273,8 +180,8 @@ export default function Intro_final() {
             ))}
           </motion.div>
         )}
-              
-        {/* 3. PHRASES */}
+
+        {/* PHRASE ANIMATIONS */}
         {stage === "phrases" && (
           <motion.div className="fixed inset-0 flex items-center justify-center">
             {renderPhrase()}
@@ -282,7 +189,7 @@ export default function Intro_final() {
         )}
       </AnimatePresence>
 
-      {/* 4. HOME PAGE */}
+      {/* LOAD HOMEPAGE */}
       {stage === "done" && <Dashboards />}
     </div>
   );
