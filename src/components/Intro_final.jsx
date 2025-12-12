@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LogoK from "./LogoK";
-import Navbar from "./Navbar";
 import Dashboards from "./Dashboards";
 
 export default function Intro_final() {
-  const [stage, setStage] = useState(() => {
-    const played = localStorage.getItem("introPlayed");
-    return played === "true" ? "done" : "logo";
-  });
+  // Detect if page was loaded fresh (typed URL, new tab, refresh)
+  const navType = performance.getEntriesByType("navigation")[0]?.type;
 
+  const shouldPlayIntro = navType === "reload" || navType === "navigate";
+
+  const [stage, setStage] = useState(shouldPlayIntro ? "logo" : "done");
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const phrases = ["Smarter Analytics", "VISION THAT LEADS", "Invest With Confidence"];
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    if (stage !== "done") return;
+  const phrases = [
+    "Smarter Analytics",
+    "VISION THAT LEADS",
+    "Invest With Confidence"
+  ];
 
-    const handleMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handleMove);
-
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [stage]);
-
-  // INTRO TIMING (unchanged)
+  // INTRO ANIMATION HANDLER
   useEffect(() => {
     if (stage === "done") return;
 
     const timers = [];
-    timers.push(setTimeout(() => setStage("kavix"), 1600));
-    timers.push(setTimeout(() => setStage("phrases"), 3200));
 
-    const start = 3200;
+    timers.push(setTimeout(() => setStage("kavix"), 1500));
+    timers.push(setTimeout(() => setStage("phrases"), 3000));
+
+    const start = 3000;
     const step = 1800;
 
     phrases.forEach((_, i) =>
@@ -41,85 +37,43 @@ export default function Intro_final() {
     timers.push(
       setTimeout(() => {
         setStage("done");
-        localStorage.setItem("introPlayed", "true");
       }, start + phrases.length * step + 900)
     );
 
-    return () => timers.forEach((t) => clearTimeout(t));
+    return () => timers.forEach(clearTimeout);
   }, []);
 
-  // ====================== RESPONSIVE FIXES ======================
-  const responsiveText = (desktop, tablet, mobile) => {
-    return `text-[${desktop}px] sm:text-[${tablet}px] text-[${mobile}px]`;
+  // Animations
+  const letterVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.12, duration: 0.6 }
+    })
   };
 
-  const phraseFont = "'Inter', sans-serif";
-  const phraseColorClasses = ["#C7B7FF", "#7DE7F9", "#D0B8FF"];
+  const phraseColors = ["#C7B7FF", "#7DE7F9", "#D0B8FF"];
+  const font = "'Inter', sans-serif";
 
-  // ========== Render Phrases Responsively ==========
+  const slideLeftK = {
+    initial: { x: 0 },
+    animate: {
+      x: -15,
+      transition: { type: "spring", stiffness: 40, damping: 20 }
+    }
+  };
+
+  // Render phrase animations
   const renderPhrase = () => {
     const phrase = phrases[phraseIndex];
-    const color = phraseColorClasses[phraseIndex];
+    const color = phraseColors[phraseIndex];
 
-    const sharedStyle = {
-      fontFamily: phraseFont,
-      color,
-      textShadow: `0 0 30px ${color}60`,
-    };
-
-    // Phrase 1: Letter-by-letter
-    if (phraseIndex === 0) {
-      return (
-        <motion.div
-          key={phraseIndex}
-          className="flex justify-center flex-wrap px-4 text-center"
-        >
-          {phrase.split("").map((letter, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 20, scale: 0.5 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: { delay: i * 0.05 },
-              }}
-              style={{
-                ...sharedStyle,
-                fontSize: "clamp(28px, 6vw, 54px)", // RESPONSIVE FIX
-              }}
-            >
-              {letter === " " ? "\u00A0" : letter}
-            </motion.span>
-          ))}
-        </motion.div>
-      );
-    }
-
-    // Phrase 2: Word bouncing left/right
-    if (phraseIndex === 1) {
-      return (
-        <div className="flex flex-wrap justify-center gap-3 px-4 text-center">
-          {phrase.split(" ").map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, x: i % 2 ? -80 : 80 }}
-              animate={{ opacity: 1, x: 0 }}
-              style={{
-                ...sharedStyle,
-                fontSize: "clamp(32px, 7vw, 64px)", // RESPONSIVE FIX
-              }}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </div>
-      );
-    }
-
-    // Phrase 3: Slide-up words
     return (
-      <div className="flex flex-wrap justify-center gap-3 px-4 text-center">
+      <motion.div
+        key={phraseIndex}
+        className="flex flex-wrap justify-center gap-3 px-3 text-center"
+      >
         {phrase.split(" ").map((word, i) => (
           <motion.span
             key={i}
@@ -127,52 +81,64 @@ export default function Intro_final() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15 }}
             style={{
-              ...sharedStyle,
-              fontSize: "clamp(28px, 6vw, 54px)", // RESPONSIVE FIX
+              fontFamily: font,
+              fontWeight: 600,
+              fontSize: "clamp(30px, 8vw, 64px)", // BIGGER TEXT
+              color,
+              textShadow: `0 0 35px ${color}60`
             }}
           >
             {word}
           </motion.span>
         ))}
-      </div>
+      </motion.div>
     );
   };
 
-  // ====================== UI ======================
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#160523] to-[#05010a] relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#160523] to-[#05010a] relative overflow-hidden">
 
       <AnimatePresence mode="wait">
-        {/* KAVIX INITIAL LOGO */}
+
+        {/* 1. LOGO */}
         {stage === "logo" && (
           <motion.div className="fixed inset-0 flex items-center justify-center">
-            <div className="scale-[0.6] sm:scale-75 md:scale-100"> {/* responsive scale */}
+            <div className="scale-[0.75] sm:scale-90 md:scale-100">
               <LogoK color="#67e8f9" />
             </div>
           </motion.div>
         )}
 
-        {/* K + KAVIX TEXT */}
+        {/* 2. K + KAVIX */}
         {stage === "kavix" && (
-          <motion.div className="fixed inset-0 flex items-center justify-center gap-3 sm:gap-4">
-            <motion.div initial={{ x: 0 }} animate={{ x: -40 }}>
-              <div className="scale-[0.6] sm:scale-75 md:scale-100">
+          <motion.div className="fixed inset-0 flex items-center justify-center gap-2 sm:gap-3">
+
+            {/* FIXED SIZE LOGO */}
+            <motion.div
+              variants={slideLeftK}
+              initial="initial"
+              animate="animate"
+              className="flex items-center"
+            >
+              <div className="w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] flex items-center justify-center">
                 <LogoK skipAnimation={true} color="#67e8f9" />
               </div>
             </motion.div>
 
+            {/* LETTERS */}
             {Array.from("KAVIX").map((ch, i) => (
               <motion.span
                 key={i}
                 custom={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="font-extrabold"
+                variants={letterVariants}
+                initial="hidden"
+                animate="show"
                 style={{
-                  fontFamily: phraseFont,
-                  fontSize: "clamp(42px, 12vw, 88px)", // RESPONSIVE FIX
+                  fontFamily: font,
+                  fontWeight: 900,
+                  fontSize: "clamp(40px, 11vw, 90px)", // BIGGER TEXT
                   color: "#67e8f9",
-                  textShadow: "0 0 40px rgba(103,232,249,0.5)",
+                  textShadow: "0 0 45px rgba(103,232,249,0.5)"
                 }}
               >
                 {ch}
@@ -181,15 +147,16 @@ export default function Intro_final() {
           </motion.div>
         )}
 
-        {/* PHRASE ANIMATIONS */}
+        {/* 3. PHRASES */}
         {stage === "phrases" && (
-          <motion.div className="fixed inset-0 flex items-center justify-center">
+          <motion.div className="fixed inset-0 flex items-center justify-center px-3">
             {renderPhrase()}
           </motion.div>
         )}
+
       </AnimatePresence>
 
-      {/* LOAD HOMEPAGE */}
+      {/* 4. FINAL PAGE */}
       {stage === "done" && <Dashboards />}
     </div>
   );
