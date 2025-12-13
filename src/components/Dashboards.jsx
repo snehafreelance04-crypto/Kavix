@@ -209,9 +209,9 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
     rounded-full font-semibold 
     text-xl sm:text-lg tracking-wide
     text-[#E8FFF9]
-    bg-gradient-to-r from-[#002920] via-[#01463B] to-[#002920]
+    bg-gradient-to-r from-[#0a261a] via-[rgb(25,29,69)] to-[#0e3921]
     shadow-[0_0_22px_rgba(0,255,170,0.18)]
-    border border-[#045f4c]
+    border border-[#3cad9e]
     transition-all duration-300 overflow-hidden
     hover:scale-105 sm:hover:scale-[1.08]
     hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]
