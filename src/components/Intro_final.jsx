@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LogoK from "./LogoK";
@@ -120,7 +121,7 @@ export default function Intro_final() {
               animate="animate"
               className="flex items-center"
             >
-              <div className="w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] flex items-center justify-center">
+              <div className="w-[70px] h-[70px] sm:w-[120px] sm:h-[120px] flex items-center justify-center">
                 <LogoK skipAnimation={true} color="#67e8f9" />
               </div>
             </motion.div>

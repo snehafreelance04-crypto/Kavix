@@ -1,3 +1,4 @@
+
 // Dashboards.jsx - Fully Responsive Version
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -220,7 +221,7 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
   "
               >
 
-                <span className="relative text-gray p-7 z-20 flex items-center justify-center gap-2 sm:gap-3">
+                <span className="relative text-gray p-5 z-20 flex items-center justify-center gap-2 sm:gap-3">
                   <span className="whitespace-nowrap">View Investment Plans</span>
                   <span className="text-[#6FFFD2] text-xl sm:text-2xl">→</span>
                 </span>

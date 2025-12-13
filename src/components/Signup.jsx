@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoK from "./LogoK";
@@ -65,7 +66,7 @@ export default function Signup() {
         className="
           absolute md:left-1/2 md:top-6 
           md:-translate-x-[90%]
-          w-full max-w-md mx-auto
+          w-full max-w-[44rem] mx-auto
           md:w-[600px]
           min-h-[94vh]
           bg-white border border-gray-300 rounded-2xl shadow-2xl 

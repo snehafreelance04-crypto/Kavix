@@ -28,7 +28,7 @@ export default function Navbar() {
       "
     >
       {/* LEFT SIDE */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-1">
         {/* Logo */}
         <motion.div variants={navVariant} className="w-12 h-12 flex items-center justify-center">
           <LogoK className="w-full h-full" />
@@ -40,14 +40,14 @@ export default function Navbar() {
         </motion.span>
 
         {/* ABOUT US moved here */}
+      </div>
         <motion.button
           variants={navVariant}
           onClick={() => navigate("/about")}
-          className="hidden md:block text-white font-medium hover:text-cyan-300 text-sm"
+          className="hidden md:block text-white font-medium hover:text-cyan-300 absolute left-[12rem] text-sm"
         >
           ABOUT US
         </motion.button>
-      </div>
 
       {/* DESKTOP RIGHT SIDE MENU */}
       <div className="hidden md:flex items-center gap-8 text-white text-sm font-medium">
