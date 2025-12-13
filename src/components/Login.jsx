@@ -62,14 +62,10 @@ export default function Login() {
       {/* LOGIN CARD — EXACT OLD LAYOUT RESTORED */}
       <div
         className="
-          absolute 
-          md:left-[44%] 
-          md:top-6 
-          md:-translate-x-[80%] 
-          w-full max-w-[45rem] mx-auto
-          md:w-[100rem]
-          h-screen
-          flex flex-col justify-center
+           absolute md:left-1/2 md:top-6 
+          md:-translate-x-[90%]
+          w-full max-w-[44rem] mx-auto
+          md:w-[600px]
           min-h-[94vh]
           bg-white border border-gray-300 rounded-2xl shadow-2xl 
           z-10 px-6 sm:px-10 md:px-14 py-10
