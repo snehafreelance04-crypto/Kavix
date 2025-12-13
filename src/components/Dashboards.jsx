@@ -188,7 +188,7 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
               initial4={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-xs sm:text-sm md:text-md relative top-10 mt-4 sm:mb-4 text-gray-500"
+              className="text-xs sm:text-sm md:text-md relative top-3 mt-4 sm:mb-4 text-gray-500"
             >
               Trusted by readers who prefer insight over speculation.
             </motion.p>
