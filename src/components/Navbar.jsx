@@ -15,6 +15,16 @@ export default function Navbar() {
     }
   });
 
+  const initials = (() => {
+    if (!user) return '';
+    const name = user.name || user.email || '';
+    if (!name) return '';
+    const parts = name.split(' ').filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+    return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+  })();
+
+
   const googleLogin = () => {
     // allow choosing account
     startLogin(undefined, { promptSelect: true });
@@ -98,8 +108,11 @@ export default function Navbar() {
       {/* DESKTOP RIGHT SIDE MENU */}
       <div className="hidden md:flex items-center gap-8 text-white text-sm font-medium">
         {user ? (
-          <>
-            <span className="hidden sm:block">{user.name}</span>
+          <div className="flex items-center gap-4">
+            <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold">
+              {initials || 'U'}
+            </div>
+            <span className="font-medium">{user.name}</span>
             <button
               onClick={() => {
                 localStorage.removeItem('user');
@@ -111,7 +124,7 @@ export default function Navbar() {
             >
               LOGOUT
             </button>
-          </>
+          </div>
         ) : (
           <>
             <button onClick={googleLogin} className="hover:text-cyan-300 transition">LOGIN</button>
@@ -167,25 +180,31 @@ export default function Navbar() {
 
     {/* ITEM 2 */}
     {user ? (
-      <button
-        onClick={() => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-          setMenuOpen(false);
-          setUser(null);
-          doLogout();
-        }}
-        className="
-          text-white text-sm font-medium 
-          py-2 rounded-lg px-3
-          hover:bg-white/10 hover:text-cyan-300 
-          hover:shadow-[0_0_12px_rgba(0,255,255,0.25)]
-          transition-all 
-          active:scale-95
-        "
-      >
-        LOGOUT
-      </button>
+      <>
+        <div className="px-3 py-2 rounded-lg bg-white/5 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold">{initials || 'U'}</div>
+          <div className="text-sm">{user.name}</div>
+        </div>
+        <button
+          onClick={() => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            setMenuOpen(false);
+            setUser(null);
+            doLogout();
+          }}
+          className="
+            text-white text-sm font-medium 
+            py-2 rounded-lg px-3
+            hover:bg-white/10 hover:text-cyan-300 
+            hover:shadow-[0_0_12px_rgba(0,255,255,0.25)]
+            transition-all 
+            active:scale-95
+          "
+        >
+          LOGOUT
+        </button>
+      </>
     ) : (
       <button
         onClick={() => {
