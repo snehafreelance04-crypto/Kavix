@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LogoK from "./LogoK";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { startLogin, logout as doLogout, getMe } from '../utils/auth';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('user'));
+    } catch {
+      return null;
+    }
+  });
+
+  const googleLogin = () => {
+    startLogin('https://kavix-two.vercel.app/login-success');
+  }
+
+  useEffect(() => {
+    // If a server session exists, populate user
+    (async () => {
+      const me = await getMe();
+      if (me && !user) {
+        const u = { name: me.name || me.email };
+        localStorage.setItem('user', JSON.stringify(u));
+        setUser(u);
+      }
+    })();
+  }, []);
 
   const navVariant = {
     hidden: { opacity: 0, y: -60 },
@@ -51,14 +75,33 @@ export default function Navbar() {
 
       {/* DESKTOP RIGHT SIDE MENU */}
       <div className="hidden md:flex items-center gap-8 text-white text-sm font-medium">
-        <button onClick={() => navigate("/login")} className="hover:text-cyan-300 transition">LOGIN</button>
+        {user ? (
+          <>
+            <span className="hidden sm:block">{user.name}</span>
+            <button
+              onClick={() => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                setUser(null);
+                doLogout('https://kavix-two.vercel.app/');
+              }}
+              className="hover:text-cyan-300 transition"
+            >
+              LOGOUT
+            </button>
+          </>
+        ) : (
+          <>
+            <button onClick={googleLogin} className="hover:text-cyan-300 transition">LOGIN</button>
 
-        <button
-          onClick={() => navigate("/signup")}
-          className="px-5 py-2 rounded-full border border-white/40 text-white hover:bg-cyan-900 transition"
-        >
-          CREATE FREE ACCOUNT
-        </button>
+            <button
+              onClick={() => navigate("/signup")}
+              className="px-5 py-2 rounded-full border border-white/40 text-white hover:bg-cyan-900 transition"
+            >
+              CREATE FREE ACCOUNT
+            </button>
+          </>
+        )}
       </div>
 
       {/* MOBILE MENU BUTTON */}
@@ -101,22 +144,44 @@ export default function Navbar() {
     </button>
 
     {/* ITEM 2 */}
-    <button
-      onClick={() => {
-        navigate('/login');
-        setMenuOpen(false);
-      }}
-      className="
-        text-white text-sm font-medium 
-        py-2 rounded-lg px-3
-        hover:bg-white/10 hover:text-cyan-300 
-        hover:shadow-[0_0_12px_rgba(0,255,255,0.25)]
-        transition-all 
-        active:scale-95
-      "
-    >
-      LOGIN
-    </button>
+    {user ? (
+      <button
+        onClick={() => {
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          setMenuOpen(false);
+          setUser(null);
+          doLogout('https://kavix-two.vercel.app/');
+        }}
+        className="
+          text-white text-sm font-medium 
+          py-2 rounded-lg px-3
+          hover:bg-white/10 hover:text-cyan-300 
+          hover:shadow-[0_0_12px_rgba(0,255,255,0.25)]
+          transition-all 
+          active:scale-95
+        "
+      >
+        LOGOUT
+      </button>
+    ) : (
+      <button
+        onClick={() => {
+          startLogin('https://kavix-two.vercel.app/login-success');
+          setMenuOpen(false);
+        }}
+        className="
+          text-white text-sm font-medium 
+          py-2 rounded-lg px-3
+          hover:bg-white/10 hover:text-cyan-300 
+          hover:shadow-[0_0_12px_rgba(0,255,255,0.25)]
+          transition-all 
+          active:scale-95
+        "
+      >
+        LOGIN
+      </button>
+    )}
 
     {/* ITEM 3 */}
     <button
@@ -140,6 +205,6 @@ export default function Navbar() {
 
   </motion.div>
 )}
-    </motion.nav>   /* ← YOU MISSED THIS CLOSING TAG */
+    </motion.nav>
   );
 }

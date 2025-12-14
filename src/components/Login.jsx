@@ -13,6 +13,10 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const googleLogin = () => {
+    // redirect to backend and instruct to return to /login-success
+    window.location.href = "http://localhost:5000/auth/google?redirect=http://localhost:5173/login-success";
+  };
 
   // Login validation
   const handleLogin = () => {
@@ -165,7 +169,7 @@ export default function Login() {
 
         {/* Social */}
         <div className="flex gap-4 mb-6">
-          <button className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
+          <button onClick={googleLogin} className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               className="w-5"
