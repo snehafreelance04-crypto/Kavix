@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { startLogin } from '../utils/auth';
 import LogoK from "./LogoK";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -13,10 +14,11 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  import.meta.env; // keep Vite env available
   const googleLogin = () => {
-    // redirect to backend and instruct to return to /login-success
-    window.location.href = "http://localhost:5000/auth/google?redirect=http://localhost:5173/login-success";
-  };
+    // prompt account selection on each login click
+    startLogin(undefined, { promptSelect: true });
+  }; 
 
   // Login validation
   const handleLogin = () => {

@@ -13,9 +13,8 @@ export default function LoginSuccess() {
     // persist minimal user and token
     handleAuthCallback(token);
 
-    // clean URL and navigate home
-    window.history.replaceState({}, '', '/');
-    navigate('/home');
+    // navigate to app and replace history so token is not retained in URL
+    navigate('/home', { replace: true });
   }, [navigate]);
 
   return (

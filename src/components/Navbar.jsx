@@ -16,7 +16,8 @@ export default function Navbar() {
   });
 
   const googleLogin = () => {
-    startLogin('https://kavix-two.vercel.app/login-success');
+    // allow choosing account
+    startLogin(undefined, { promptSelect: true });
   }
 
   useEffect(() => {
@@ -29,6 +30,27 @@ export default function Navbar() {
         setUser(u);
       }
     })();
+
+    // listen to auth changes in same tab and other tabs
+    const onAuthChange = () => {
+      try {
+        const u = JSON.parse(localStorage.getItem('user'));
+        setUser(u);
+      } catch {
+        setUser(null);
+      }
+    };
+    const onStorage = (e) => {
+      if (e.key === 'user') {
+        try { setUser(e.newValue ? JSON.parse(e.newValue) : null); } catch { setUser(null); }
+      }
+    };
+    window.addEventListener('authChange', onAuthChange);
+    window.addEventListener('storage', onStorage);
+    return () => {
+      window.removeEventListener('authChange', onAuthChange);
+      window.removeEventListener('storage', onStorage);
+    };
   }, []);
 
   const navVariant = {
@@ -83,7 +105,7 @@ export default function Navbar() {
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
                 setUser(null);
-                doLogout('https://kavix-two.vercel.app/');
+                doLogout();
               }}
               className="hover:text-cyan-300 transition"
             >
@@ -151,7 +173,7 @@ export default function Navbar() {
           localStorage.removeItem('token');
           setMenuOpen(false);
           setUser(null);
-          doLogout('https://kavix-two.vercel.app/');
+          doLogout();
         }}
         className="
           text-white text-sm font-medium 
@@ -167,7 +189,7 @@ export default function Navbar() {
     ) : (
       <button
         onClick={() => {
-          startLogin('https://kavix-two.vercel.app/login-success');
+          startLogin(undefined, { promptSelect: true });
           setMenuOpen(false);
         }}
         className="
