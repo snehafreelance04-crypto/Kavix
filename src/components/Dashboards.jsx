@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 // Dashboards.jsx - Fully Responsive Version
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -188,7 +191,11 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
               initial4={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
+<<<<<<< HEAD
               className="text-xs sm:text-sm md:text-md relative top-3 mt-4 sm:mb-4 text-gray-500"
+=======
+              className="text-xs sm:text-sm md:text-md relative top-10 mt-4 sm:mb-4 text-gray-500"
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
             >
               Trusted by readers who prefer insight over speculation.
             </motion.p>
@@ -209,9 +216,15 @@ space-y-6 sm:space-y-7 md:space-y-10 lg:space-y-12
     rounded-full font-semibold 
     text-xl sm:text-lg tracking-wide
     text-[#E8FFF9]
+<<<<<<< HEAD
     bg-gradient-to-r from-[#0a261a] via-[rgb(25,29,69)] to-[#0e3921]
     shadow-[0_0_22px_rgba(0,255,170,0.18)]
     border border-[#3cad9e]
+=======
+    bg-gradient-to-r from-[#002920] via-[#01463B] to-[#002920]
+    shadow-[0_0_22px_rgba(0,255,170,0.18)]
+    border border-[#045f4c]
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
     transition-all duration-300 overflow-hidden
     hover:scale-105 sm:hover:scale-[1.08]
     hover:shadow-[0_0_40px_rgba(0,255,200,0.35)]

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoK from "./LogoK";

@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import { startLogin } from '../utils/auth';
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 import LogoK from "./LogoK";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +17,14 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+<<<<<<< HEAD
+=======
+  import.meta.env; // keep Vite env available
+  const googleLogin = () => {
+    // prompt account selection on each login click
+    startLogin(undefined, { promptSelect: true });
+  }; 
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 
   // Login validation
   const handleLogin = () => {
@@ -165,7 +177,11 @@ export default function Login() {
 
         {/* Social */}
         <div className="flex gap-4 mb-6">
+<<<<<<< HEAD
           <button className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
+=======
+          <button onClick={googleLogin} className="flex-1 border border-black rounded-full py-3 flex justify-center hover:bg-gray-100">
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               className="w-5"
@@ -206,4 +222,8 @@ export default function Login() {
       )}
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412

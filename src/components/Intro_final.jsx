@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LogoK from "./LogoK";

@@ -5,6 +5,10 @@ import Signup from "./components/Signup.jsx";
 import About from "./components/About.jsx";
 import InvestmentPlans from "./components/InvestmentPlans";
 import Dashboards from "./components/Dashboards"; // ← ADD THIS
+<<<<<<< HEAD
+=======
+import LoginSuccess from './components/LoginSuccess.jsx';
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
 
 export default function App() {
   return (
@@ -19,7 +23,12 @@ export default function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/about" element={<About />} />
       <Route path="/investment-plans" element={<InvestmentPlans />} />
+<<<<<<< HEAD
       
+=======
+      <Route path="/login-success" element={<LoginSuccess />} />
+    
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
     </Routes>
   );
 }

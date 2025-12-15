@@ -58,7 +58,11 @@ const InvestmentPlans = () => {
             <div className="absolute top-6 left-6 z-50">
                 <button
                     onClick={() => navigate("/")}
+<<<<<<< HEAD
                     className="relative top-5 hover:text-gray-400 text-2xl font-serif text-white ml-32 "
+=======
+                    className=" relative top-5  hover:text-gray-400 text-2xl font-serif text-white ml-36 "
+>>>>>>> 70b186eebdc9efa68cf6019d6a17721761616412
                 >
                     ← Home
                 </button>
